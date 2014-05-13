@@ -62,8 +62,11 @@ function ejecutarCodigo() {
  * @param languages Objeto JSON con el perfil de todos los lenguajes
  * @param language El lenguaje que se está seleccionando
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
- * @version 2014-05-07
+ * @version 2014-05-13
  */
 function asignarLenguaje(languages, language) {
-    editor.getSession().setMode("ace/mode/"+languages[language]["mode"]);
+    try {
+        editor.getSession().setMode("ace/mode/"+languages[language]["mode"]);
+    } catch (error) {
+    }
 }
