@@ -90,6 +90,8 @@ class Controller_Editor extends \Controller_App
         }
         // se reemplazan < y > para evitar que se procesen como tags html
         $code = str_replace(['<', '>'], ['&lt;', '&gt;'], $code);
+        // asignar tamaño de la fuente
+        $font_size = !empty($_POST['font_size']) ? $_POST['font_size'] : 12;
         // asignar variables generales
         $this->set([
             '_header_extra' => [
@@ -104,6 +106,7 @@ class Controller_Editor extends \Controller_App
             'language' => $language,
             'languages' => json_encode($this->languages),
             'options' => $options,
+            'font_size' => $font_size,
         ]);
         // si se envió el formulario se procesa el código fuente y se asigna
         // como salida lo que retorna el método $this->runCode()

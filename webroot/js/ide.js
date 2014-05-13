@@ -49,7 +49,8 @@ function ejecutarCodigo() {
         {
             "language" : document.getElementById("languageField").value,
             "code" : editor.getValue(),
-            "input" : document.getElementById("inputField").value
+            "input" : document.getElementById("inputField").value,
+            "font_size": document.getElementById("font_sizeField").value
         }
     );
     // retornar siempre falso
@@ -69,4 +70,8 @@ function asignarLenguaje(languages, language) {
         editor.getSession().setMode("ace/mode/"+languages[language]["mode"]);
     } catch (error) {
     }
+}
+
+function changeFontSize(size) {
+    $("#editor").css("font-size", size + "px");
 }
