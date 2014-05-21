@@ -27,7 +27,7 @@ namespace website\Ide;
  * Controlador para el editor del IDE, contiene todas las acciones que el IDE
  * permite realizar.
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
- * @version 2014-05-07
+ * @version 2014-05-21
  */
 class Controller_Editor extends \Controller_App
 {
@@ -193,7 +193,7 @@ class Controller_Editor extends \Controller_App
      * @param input Contenido del archivo de entrada (input.txt) en caso que exista
      * @return String con la salida/resultado del proceso de ejecución de cada uno de los comandos asociados con el lenguaje (en su perfil)
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-07
+     * @version 2014-05-21
      */
     private function runCode ($language, $options, $code, $input = '')
     {
@@ -226,9 +226,32 @@ class Controller_Editor extends \Controller_App
             // se ejecuta el comando guardando su salida
             $output[] = 'Ejecutando:'."\n".'$ '.$cmd."\n";
             exec ('cd '.$dir.'; '.$cmd, $output, $rc);
+            // agregar línea en blanco al último comando ejecutado si no existe
+            $lastLine = count($output)-1;
+            if ($output[$lastLine][strlen($output[$lastLine])-1]!="\n") {
+                $output[$lastLine] .= "\n";
+            }
             // en caso de error del comando (RC>=1) se rompe el ciclo de
             // ejecución de comandos
             if ($rc) break;
+        }
+        // se revisa error para ejecutar acciones en caso de que hayan ocurrido
+        if ($rc && isset($options['rc'][$rc])) {
+            foreach ($options['rc'][$rc] as &$c) {
+                // se crea el comando reemplazando los parámetros :in, :out y:bin
+                // por los nombres reales de estos
+                $cmd = str_replace(
+                    [':in', ':out', ':bin'],
+                    [
+                        $options['in']['file'],
+                        (!empty($options['out']['file'])?$options['out']['file']:''),
+                        (!empty($options['bin'])?$options['bin']:'')
+                    ],
+                $c).' 2>&1';
+                // se ejecuta el comando guardando su salida
+                $output[] = 'Ejecutando:'."\n".'$ '.$cmd."\n";
+                exec ('cd '.$dir.'; '.$cmd, $output, $rc);
+            }
         }
         // generar salida del proyecto
         $output = implode("\n", $output);

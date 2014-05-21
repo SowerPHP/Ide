@@ -41,9 +41,13 @@
         'in'   => ['name'=>'main', 'ext'=>'c'],
         'out'  => ['name'=>'main'],
         'cmd'  => [
-            'gcc -Wall -ansi -pedantic :in -o :out',
-            './:out'
+            'gcc -Wall -ansi -pedantic -ggdb :in -o :out',
+            './:out',
+            'valgrind --leak-check=full --track-origins=yes ./:out 2>&1 | grep -A 100 "HEAP SUMMARY"'
         ],
+        'rc'   => [
+            139 => ['gdb --quiet --batch -ex "run" ./:out'],
+        ]
     ],
     'cpp' => [
         'name' => 'C++',
