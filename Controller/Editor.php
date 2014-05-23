@@ -193,7 +193,7 @@ class Controller_Editor extends \Controller_App
      * @param input Contenido del archivo de entrada (input.txt) en caso que exista
      * @return String con la salida/resultado del proceso de ejecución de cada uno de los comandos asociados con el lenguaje (en su perfil)
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-21
+     * @version 2014-05-22
      */
     private function runCode ($language, $options, $code, $input = '')
     {
@@ -222,10 +222,10 @@ class Controller_Editor extends \Controller_App
                     (!empty($options['out']['file'])?$options['out']['file']:''),
                     (!empty($options['bin'])?$options['bin']:'')
                 ],
-            $c).' 2>&1';
+            $c);
             // se ejecuta el comando guardando su salida
             $output[] = 'Ejecutando:'."\n".'$ '.$cmd."\n";
-            exec ('cd '.$dir.'; '.$cmd, $output, $rc);
+            exec ('cd '.$dir.'; '.$cmd.' 2>&1', $output, $rc);
             // agregar línea en blanco al último comando ejecutado si no existe
             $lastLine = count($output)-1;
             if ($output[$lastLine][strlen($output[$lastLine])-1]!="\n") {
@@ -247,10 +247,10 @@ class Controller_Editor extends \Controller_App
                         (!empty($options['out']['file'])?$options['out']['file']:''),
                         (!empty($options['bin'])?$options['bin']:'')
                     ],
-                $c).' 2>&1';
+                $c);
                 // se ejecuta el comando guardando su salida
                 $output[] = 'Ejecutando:'."\n".'$ '.$cmd."\n";
-                exec ('cd '.$dir.'; '.$cmd, $output, $rc);
+                exec ('cd '.$dir.'; '.$cmd.' 2>&1', $output, $rc);
             }
         }
         // generar salida del proyecto
