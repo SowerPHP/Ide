@@ -255,7 +255,7 @@ class Controller_Editor extends \Controller_App
         }
         // generar salida del proyecto
         $output = implode("\n", $output);
-        file_put_contents ($dir.'output.txt', $output);
+        file_put_contents ($dir.'exec.log', $output);
         // guardar proyecto en la sesión por si el usuario desea bajarlo
         (new Model_Editor)->save($dir);
         // eliminar directorio temporal
