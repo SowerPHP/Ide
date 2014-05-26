@@ -26,6 +26,7 @@ echo $f->input([
 echo $f->input([
     'name'      => 'args',
     'label'     => 'Argumentos',
+    'help'      => 'En caso de querer usar comillas, utilizar simples.<br />Ejemplo: \'esto es un solo argumento\''
 ]);
 echo $f->input([
     'type'      => 'textarea',
