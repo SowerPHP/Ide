@@ -42,11 +42,11 @@
         'out'  => ['name'=>'main'],
         'cmd'  => [
             'gcc -Wall -ansi -pedantic -ggdb :in -o :out',
-            './:out',
-            'valgrind --leak-check=full --track-origins=yes ./:out 2>&1 | grep -A 100 "HEAP SUMMARY"'
+            './:out :args',
+            'valgrind --leak-check=full --track-origins=yes ./:out :args 2>&1 | grep -A 100 "HEAP SUMMARY"'
         ],
         'rc'   => [
-            139 => ['gdb --quiet --batch -ex "run" ./:out'],
+            139 => ['gdb --quiet --batch -ex "run" ./:out :args'],
         ]
     ],
     'cpp' => [
@@ -56,7 +56,7 @@
         'out'  => ['name'=>'main'],
         'cmd'  => [
             'g++ -Wall -ansi -pedantic :in -o :out',
-            './:out'
+            './:out :args'
         ],
     ],
     'python3' => [
@@ -64,7 +64,7 @@
         'mode' => 'python',
         'in'  => ['name'=>'main', 'ext'=>'py'],
         'cmd'  => [
-            'python3 :in'
+            'python3 :in :args'
         ],
     ],
     'php' => [
@@ -72,7 +72,7 @@
         'mode' => 'php',
         'in'  => ['name'=>'index', 'ext'=>'php'],
         'cmd'  => [
-            'php :in'
+            'php :in :args'
         ],
     ],
     'perl' => [
@@ -80,7 +80,7 @@
         'mode' => 'perl',
         'in'  => ['name'=>'main', 'ext'=>'pl'],
         'cmd'  => [
-            'perl :in'
+            'perl :in :args'
         ],
     ],
     'java' => [
@@ -90,7 +90,7 @@
         'out'  => ['ext'=>'class'],
         'cmd'  => [
             'javac :in',
-            'java :bin'
+            'java :bin :args'
         ],
     ],
 ]);

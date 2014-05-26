@@ -42,7 +42,7 @@ class Controller_Editor extends \Controller_App
      * @param language Lenguaje que se desea compilar y ejecutar
      * @param file Archivo (del lenguaje elegido) que se desea compilar y ejecutar
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-07
+     * @version 2014-05-26
      */
     public function index ($language = '', $file = '')
     {
@@ -115,7 +115,8 @@ class Controller_Editor extends \Controller_App
                 $_POST['language'],
                 $this->options($_POST['language']),
                 $_POST['code'],
-                $_POST['input']
+                $_POST['input'],
+                $_POST['args']
             ));
         }
     }
@@ -191,11 +192,12 @@ class Controller_Editor extends \Controller_App
      * @param options Opciones o perfil del lenguaje
      * @param code Contenido del código fuente que se debe compilar y ejecutar
      * @param input Contenido del archivo de entrada (input.txt) en caso que exista
+     * @param args Argumentos que se pasarán al programa
      * @return String con la salida/resultado del proceso de ejecución de cada uno de los comandos asociados con el lenguaje (en su perfil)
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-22
+     * @version 2014-05-26
      */
-    private function runCode ($language, $options, $code, $input = '')
+    private function runCode ($language, $options, $code, $input = '', $args = '')
     {
         // crear directorio temporal para el proyecto y guardar codigo fuente ya archivo de entrada (si existe)
         $dir = TMP.'/ide_'.string_random(6).'/';
@@ -216,11 +218,12 @@ class Controller_Editor extends \Controller_App
             // se crea el comando reemplazando los parámetros :in, :out y:bin
             // por los nombres reales de estos
             $cmd = str_replace(
-                [':in', ':out', ':bin'],
+                [':in', ':out', ':bin', ':args'],
                 [
                     $options['in']['file'],
                     (!empty($options['out']['file'])?$options['out']['file']:''),
-                    (!empty($options['bin'])?$options['bin']:'')
+                    (!empty($options['bin'])?$options['bin']:''),
+                    $args,
                 ],
             $c);
             // se ejecuta el comando guardando su salida
@@ -241,11 +244,12 @@ class Controller_Editor extends \Controller_App
                 // se crea el comando reemplazando los parámetros :in, :out y:bin
                 // por los nombres reales de estos
                 $cmd = str_replace(
-                    [':in', ':out', ':bin'],
+                    [':in', ':out', ':bin', ':args'],
                     [
                         $options['in']['file'],
                         (!empty($options['out']['file'])?$options['out']['file']:''),
-                        (!empty($options['bin'])?$options['bin']:'')
+                        (!empty($options['bin'])?$options['bin']:''),
+                        $args,
                     ],
                 $c);
                 // se ejecuta el comando guardando su salida

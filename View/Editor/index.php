@@ -24,6 +24,10 @@ echo $f->input([
     'check'     => 'notempty',
 ]);
 echo $f->input([
+    'name'      => 'args',
+    'label'     => 'Argumentos',
+]);
+echo $f->input([
     'type'      => 'textarea',
     'name'      => 'input',
     'label'     => 'Archivo input.txt',

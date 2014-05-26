@@ -49,6 +49,7 @@ function ejecutarCodigo() {
         {
             "language" : document.getElementById("languageField").value,
             "code" : editor.getValue(),
+	    "args" : document.getElementById("argsField").value,
             "input" : document.getElementById("inputField").value,
             "font_size": document.getElementById("font_sizeField").value
         }
