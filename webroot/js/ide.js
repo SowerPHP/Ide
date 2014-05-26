@@ -26,7 +26,7 @@ var editor;
 $().ready(function() {
     ace.require("ace/ext/language_tools");
     editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
+    editor.setTheme("ace/theme/clouds");
     editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true
