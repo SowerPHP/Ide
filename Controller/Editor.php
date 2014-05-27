@@ -42,7 +42,7 @@ class Controller_Editor extends \Controller_App
      * @param language Lenguaje que se desea compilar y ejecutar
      * @param file Archivo (del lenguaje elegido) que se desea compilar y ejecutar
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-26
+     * @version 2014-05-27
      */
     public function index ($language = '', $file = '')
     {
@@ -116,7 +116,8 @@ class Controller_Editor extends \Controller_App
                 $this->options($_POST['language']),
                 $_POST['code'],
                 $_POST['input'],
-                $_POST['args']
+                $_POST['args'],
+                $_POST['stdin']
             ));
         }
     }
@@ -193,11 +194,12 @@ class Controller_Editor extends \Controller_App
      * @param code Contenido del código fuente que se debe compilar y ejecutar
      * @param input Contenido del archivo de entrada (input.txt) en caso que exista
      * @param args Argumentos que se pasarán al programa
+     * @param stdin Entrada estándar (teclado) una entrada por línea
      * @return String con la salida/resultado del proceso de ejecución de cada uno de los comandos asociados con el lenguaje (en su perfil)
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-26
+     * @version 2014-05-27
      */
-    private function runCode ($language, $options, $code, $input = '', $args = '')
+    private function runCode ($language, $options, $code, $input = '', $args = '', $stdin = '')
     {
         // crear directorio temporal para el proyecto y guardar codigo fuente ya archivo de entrada (si existe)
         $dir = TMP.'/ide_'.string_random(6).'/';
@@ -205,6 +207,9 @@ class Controller_Editor extends \Controller_App
         file_put_contents ($dir.$options['in']['file'], $code);
         if (!empty($input)) {
             file_put_contents ($dir.'input.txt', $input);
+        }
+        if (!empty($stdin)) {
+            file_put_contents ($dir.'stdin.txt', $stdin);
         }
         // compilar y ejecutar, para esto se procesa cada uno de los comandos
         // definidos en el perfil del lenguaje, en caso que un comando falle
@@ -218,12 +223,13 @@ class Controller_Editor extends \Controller_App
             // se crea el comando reemplazando los parámetros :in, :out y:bin
             // por los nombres reales de estos
             $cmd = str_replace(
-                [':in', ':out', ':bin', ':args'],
+                [':in', ':out', ':bin', ':args', ':stdin'],
                 [
                     $options['in']['file'],
                     (!empty($options['out']['file'])?$options['out']['file']:''),
                     (!empty($options['bin'])?$options['bin']:''),
                     $args,
+                    (!empty($stdin)?'< stdin.txt':'')
                 ],
             $c);
             // se ejecuta el comando guardando su salida
@@ -244,12 +250,13 @@ class Controller_Editor extends \Controller_App
                 // se crea el comando reemplazando los parámetros :in, :out y:bin
                 // por los nombres reales de estos
                 $cmd = str_replace(
-                    [':in', ':out', ':bin', ':args'],
+                    [':in', ':out', ':bin', ':args', ':stdin'],
                     [
                         $options['in']['file'],
                         (!empty($options['out']['file'])?$options['out']['file']:''),
                         (!empty($options['bin'])?$options['bin']:''),
                         $args,
+                        (!empty($stdin)?'< stdin.txt':'')
                     ],
                 $c);
                 // se ejecuta el comando guardando su salida

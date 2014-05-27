@@ -42,11 +42,11 @@
         'out'  => ['name'=>'main'],
         'cmd'  => [
             'gcc -Wall -ansi -pedantic -ggdb :in -o :out',
-            './:out :args',
-            'valgrind --leak-check=full --track-origins=yes ./:out :args 2>&1 | grep -A 100 "HEAP SUMMARY"'
+            './:out :args :stdin',
+            'valgrind --leak-check=full --track-origins=yes ./:out :args :stdin 2>&1 | grep -A 100 "HEAP SUMMARY"'
         ],
         'rc'   => [
-            139 => ['gdb --quiet --batch -ex "run" ./:out :args'],
+            139 => ['gdb --quiet --batch -ex "run" ./:out :args :stdin'],
         ]
     ],
     'cpp' => [
@@ -55,16 +55,20 @@
         'in'   => ['name'=>'main', 'ext'=>'cpp'],
         'out'  => ['name'=>'main'],
         'cmd'  => [
-            'g++ -Wall -ansi -pedantic :in -o :out',
-            './:out :args'
+            'g++ -Wall :in -o :out',
+            './:out :args :stdin',
+            'valgrind --leak-check=full --track-origins=yes ./:out :args :stdin 2>&1 | grep -A 100 "HEAP SUMMARY"'
         ],
+        'rc'   => [
+            139 => ['gdb --quiet --batch -ex "run" ./:out :args :stdin'],
+        ]
     ],
     'python2' => [
         'name' => 'Python 2.x',
         'mode' => 'python',
         'in'  => ['name'=>'main', 'ext'=>'py'],
         'cmd'  => [
-            'python :in :args'
+            'python :in :args :stdin'
         ],
     ],
     'python3' => [
@@ -72,7 +76,7 @@
         'mode' => 'python',
         'in'  => ['name'=>'main', 'ext'=>'py'],
         'cmd'  => [
-            'python3 :in :args'
+            'python3 :in :args :stdin'
         ],
     ],
     'php' => [
@@ -80,7 +84,7 @@
         'mode' => 'php',
         'in'  => ['name'=>'index', 'ext'=>'php'],
         'cmd'  => [
-            'php :in :args'
+            'php :in :args :stdin'
         ],
     ],
     'perl' => [
@@ -88,7 +92,7 @@
         'mode' => 'perl',
         'in'  => ['name'=>'main', 'ext'=>'pl'],
         'cmd'  => [
-            'perl :in :args'
+            'perl :in :args :stdin'
         ],
     ],
     'java' => [
@@ -98,7 +102,7 @@
         'out'  => ['ext'=>'class'],
         'cmd'  => [
             'javac :in',
-            'java :bin :args'
+            'java :bin :args :stdin'
         ],
     ],
 ]);

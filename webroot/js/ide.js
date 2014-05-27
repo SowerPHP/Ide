@@ -37,7 +37,7 @@ $().ready(function() {
  * Función que envía el código para ser ejecutado
  * @return false (en la práctica no importa, ya que no se debiera llegar a retornar)
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
- * @version 2014-05-07
+ * @version 2014-05-27
  */
 function ejecutarCodigo() {
     // chequeos básicos
@@ -51,6 +51,7 @@ function ejecutarCodigo() {
             "code" : editor.getValue(),
 	    "args" : document.getElementById("argsField").value,
             "input" : document.getElementById("inputField").value,
+	    "stdin" : document.getElementById("stdinField").value,
             "font_size": document.getElementById("font_sizeField").value
         }
     );

@@ -34,6 +34,11 @@ echo $f->input([
     'label'     => 'Archivo input.txt',
 ]);
 echo $f->input([
+    'type'      => 'textarea',
+    'name'      => 'stdin',
+    'label'     => 'Entrada estándar (teclado)',
+]);
+echo $f->input([
     'type'      => 'select',
     'name'      => 'font_size',
     'label'     => 'Tamaño de la fuente',
