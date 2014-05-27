@@ -59,8 +59,16 @@
             './:out :args'
         ],
     ],
+    'python2' => [
+        'name' => 'Python 2.x',
+        'mode' => 'python',
+        'in'  => ['name'=>'main', 'ext'=>'py'],
+        'cmd'  => [
+            'python :in :args'
+        ],
+    ],
     'python3' => [
-        'name' => 'Python 3',
+        'name' => 'Python 3.x',
         'mode' => 'python',
         'in'  => ['name'=>'main', 'ext'=>'py'],
         'cmd'  => [
