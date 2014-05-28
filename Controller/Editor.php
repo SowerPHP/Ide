@@ -238,7 +238,8 @@ class Controller_Editor extends \Controller_App
             exec ('cd '.$dir.'; timeout --kill-after='.($timeout+5).' '.$timeout.' '.$cmd.' 2>&1', $output, $rc);
             // agregar línea en blanco al último comando ejecutado si no existe
             $lastLine = count($output)-1;
-            if ($output[$lastLine][strlen($output[$lastLine])-1]!="\n") {
+            $lastChar = strlen($output[$lastLine])-1;
+            if ($lastLine>=0 && $lastChar >=0 && $output[$lastLine][$lastChar]!="\n") {
                 $output[$lastLine] .= "\n";
             }
             // en caso de error del comando (RC>=1) se rompe el ciclo de
