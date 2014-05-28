@@ -42,7 +42,7 @@ class Controller_Editor extends \Controller_App
      * @param language Lenguaje que se desea compilar y ejecutar
      * @param file Archivo (del lenguaje elegido) que se desea compilar y ejecutar
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-27
+     * @version 2014-05-28
      */
     public function index ($language = '', $file = '')
     {
@@ -117,7 +117,8 @@ class Controller_Editor extends \Controller_App
                 $_POST['code'],
                 $_POST['input'],
                 $_POST['args'],
-                $_POST['stdin']
+                $_POST['stdin'],
+                \sowerphp\core\Configure::read('ide.timeout')
             ));
         }
     }
@@ -197,9 +198,9 @@ class Controller_Editor extends \Controller_App
      * @param stdin Entrada estándar (teclado) una entrada por línea
      * @return String con la salida/resultado del proceso de ejecución de cada uno de los comandos asociados con el lenguaje (en su perfil)
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-27
+     * @version 2014-05-28
      */
-    private function runCode ($language, $options, $code, $input = '', $args = '', $stdin = '')
+    private function runCode ($language, $options, $code, $input = '', $args = '', $stdin = '', $timeout = 60)
     {
         // crear directorio temporal para el proyecto y guardar codigo fuente ya archivo de entrada (si existe)
         $dir = TMP.'/ide_'.string_random(6).'/';
@@ -234,7 +235,7 @@ class Controller_Editor extends \Controller_App
             $c);
             // se ejecuta el comando guardando su salida
             $output[] = 'Ejecutando:'."\n".'$ '.$cmd."\n";
-            exec ('cd '.$dir.'; '.$cmd.' 2>&1', $output, $rc);
+            exec ('cd '.$dir.'; timeout --kill-after='.($timeout+5).' '.$timeout.' '.$cmd.' 2>&1', $output, $rc);
             // agregar línea en blanco al último comando ejecutado si no existe
             $lastLine = count($output)-1;
             if ($output[$lastLine][strlen($output[$lastLine])-1]!="\n") {
@@ -261,7 +262,7 @@ class Controller_Editor extends \Controller_App
                 $c);
                 // se ejecuta el comando guardando su salida
                 $output[] = 'Ejecutando:'."\n".'$ '.$cmd."\n";
-                exec ('cd '.$dir.'; '.$cmd.' 2>&1', $output, $rc);
+                exec ('cd '.$dir.'; timeout --kill-after='.($timeout+5).' '.$timeout.' '.$cmd.' 2>&1', $output, $rc);
             }
         }
         // generar salida del proyecto

@@ -32,6 +32,9 @@
     dirname(dirname(__FILE__)).'/webroot/archivos/ejemplos'
 );
 
+// tiempo máximo de ejecución para los programas lanzados por el IDE
+\sowerphp\core\Configure::write('ide.timeout', 60);
+
 // definición de lenguajes soportado por el IDE y como proceder con cada uno
 // de ellos
 \sowerphp\core\Configure::write('ide.languages', [
