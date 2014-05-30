@@ -44,7 +44,7 @@
         'in'   => ['name'=>'main', 'ext'=>'c'],
         'out'  => ['name'=>'main'],
         'cmd'  => [
-            'gcc -Wall -ansi -pedantic -ggdb :in -o :out',
+            'gcc -Wall -ansi -pedantic -pthread -ggdb :in -o :out',
             './:out :args :stdin',
             'valgrind --leak-check=full --track-origins=yes ./:out :args :stdin 2>&1 | grep -A 100 "HEAP SUMMARY"'
         ],
@@ -58,7 +58,7 @@
         'in'   => ['name'=>'main', 'ext'=>'cpp'],
         'out'  => ['name'=>'main'],
         'cmd'  => [
-            'g++ -Wall -ansi -pedantic -ggdb :in -o :out',
+            'g++ -Wall -ansi -pedantic -pthread -ggdb :in -o :out',
             './:out :args :stdin',
             'valgrind --leak-check=full --track-origins=yes ./:out :args :stdin 2>&1 | grep -A 100 "HEAP SUMMARY"'
         ],
