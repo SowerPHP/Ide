@@ -43,20 +43,9 @@ function ejecutarCodigo() {
     // chequeos básicos
     if (!Form.check())
         return false;
-    // ejecutar POST
-    __.post(
-        document.getElementById("ide").getAttribute("action"),
-        {
-            "language" : document.getElementById("languageField").value,
-            "code" : editor.getValue(),
-	    "args" : document.getElementById("argsField").value,
-            "input" : document.getElementById("inputField").value,
-	    "stdin" : document.getElementById("stdinField").value,
-            "font_size": document.getElementById("font_sizeField").value
-        }
-    );
-    // retornar siempre falso
-    return false;
+    // agregar código del div (editor) al campo del formulario
+    document.getElementById("ide").code.value = editor.getValue();
+    return true;
 }
 
 /**
