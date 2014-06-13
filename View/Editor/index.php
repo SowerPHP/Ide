@@ -14,7 +14,7 @@
 <?php
 $f = new \sowerphp\general\View_Helper_Form ();
 echo $f->begin(['id'=>'ide', 'action'=>$_base.'/ide/editor', 'onsubmit'=>'ejecutarCodigo()']);
-echo $f->input(['type' => 'hidden', 'name' => 'code']);
+echo $f->input(['type' => 'hidden', 'name' => 'code', 'value'=>' ']);
 echo $f->input([
     'type'      => 'select',
     'name'      => 'language',
