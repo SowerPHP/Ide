@@ -49,6 +49,26 @@ class Model_Ejemplos
     }
 
     /**
+     * Método que obtiene los lenguajes disponibles
+     * @return Arreglo con los lenguajes
+     * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
+     * @version 2014-07-22
+     */
+    public function getLenguages ()
+    {
+        $files = scandir(DIR_EJEMPLOS);
+        $lenguajes = [];
+        foreach ($files as &$file) {
+            if ($file[0]=='.')
+                continue;
+            if (is_dir(DIR_EJEMPLOS.DIRECTORY_SEPARATOR.$file)) {
+                $lenguajes[] = $file;
+            }
+        }
+        return $lenguajes;
+    }
+    
+    /**
      * Método que obtiene todos los ejemplos que se encuentran bajo una ruta
      * @param dir Directorio de los ejemplos (en la primera llamada es vacio y se usa DIR_EJEMPLOS)
      * @return Arreglo con los ejemplos (en estructura de árbol)
@@ -69,6 +89,18 @@ class Model_Ejemplos
             }
         }
         return $ejemplos;
+    }
+    
+    /**
+     * Método que obtiene todos los ejemplos de determinado lenguaje
+     * @param lang Lenguaje para el cual se desean obtener los ejemplos
+     * @return Arreglo con los ejemplos (en estructura de árbol)
+     * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
+     * @version 2014-07-22
+     */
+    public function getAllByLanguage ($lang)
+    {
+        return $this->getAll(DIR_EJEMPLOS.DIRECTORY_SEPARATOR.$lang);
     }
 
 }

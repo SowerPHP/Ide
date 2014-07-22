@@ -27,18 +27,18 @@
  * @param ejemplos Arreglo con los ejemplos (obtenido desde el modelo)
  * @param path Ruta que se está revisando
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
- * @version 2014-05-07
+ * @version 2014-07-22
  */
-function ejemplos ($ejemplos, $path = '')
+function ejemplos ($lang, $ejemplos, $path = '')
 {
     foreach ($ejemplos as $key => &$val) {
         echo '<li>',"\n";
         if (is_numeric($key)) {
-            echo '<a href="editor',$path,'/',$val,'">',$val,'</a>',"\n";
+            echo '<a href="../../editor/',$lang,$path,'/',$val,'">',$val,'</a>',"\n";
         } else {
             echo '<span style="display:block;margin-bottom:0.5em"><strong>',$key,'</strong></span>',"\n";
             echo '<ul>',"\n";
-            ejemplos ($val, $path.'/'.$key);
+            ejemplos ($lang, $val, $path.'/'.$key);
             echo '</ul>',"\n";
         }
         echo '</li>',"\n";

@@ -32,14 +32,28 @@ class Controller_Ejemplos extends \Controller_App
 {
 
     /**
-     * Método que busca en el modelo los ejemplos y los asigna para que la
-     * vista los pueda mostrar.
+     * Método que muestra los lenguajes disponibles
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-07
+     * @version 2014-07-22
      */
     public function index ()
     {
-        $this->set('ejemplos', (new Model_Ejemplos())->getAll());
+        $this->set('lenguajes', (new Model_Ejemplos())->getLenguages());
+    }
+    
+    /**
+     * Método que busca en el modelo los ejemplos de un lenguaje específico y
+     * los asigna para que la vista los pueda mostrar.
+     * @param 
+     * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
+     * @version 2014-07-22
+     */
+    public function lenguaje ($lang)
+    {
+        $this->set([
+            'lenguaje' => $lang,
+            'ejemplos' => (new Model_Ejemplos())->getAllByLanguage($lang),
+        ]);
     }
 
 }
