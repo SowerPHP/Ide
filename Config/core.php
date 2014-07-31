@@ -71,7 +71,7 @@
         'mode' => 'python',
         'in'  => ['name'=>'main', 'ext'=>'py'],
         'cmd'  => [
-            'python :in :args :stdin'
+            'python2 :in :args :stdin'
         ],
     ],
     'python3' => [
