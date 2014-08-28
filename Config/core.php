@@ -46,7 +46,7 @@
         'cmd'  => [
             'gcc -Wall -ansi -pedantic -pthread -ggdb :in -o :out',
             './:out :args :stdin',
-            'valgrind --leak-check=full --track-origins=yes ./:out :args :stdin 2>&1 | grep -A 100 "HEAP SUMMARY"'
+            'valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./:out :args :stdin 2>&1 | grep -A 100 "HEAP SUMMARY"'
         ],
         'rc'   => [
             139 => ['gdb --quiet --batch -ex "run" ./:out :args :stdin'],
