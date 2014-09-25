@@ -58,7 +58,7 @@
         'in'   => ['name'=>'main', 'ext'=>'cpp'],
         'out'  => ['name'=>'main'],
         'cmd'  => [
-            'g++ -Wall -ansi -pedantic -pthread -ggdb :in -o :out',
+            'g++ -Wall -ansi -std=c11 -pedantic -pthread -ggdb :in -o :out',
             './:out :args :stdin',
             'valgrind --leak-check=full --track-origins=yes ./:out :args :stdin 2>&1 | grep -A 100 "HEAP SUMMARY"'
         ],
