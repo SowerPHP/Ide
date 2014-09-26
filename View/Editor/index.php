@@ -51,6 +51,6 @@ echo $f->end('Ejecutar el código');
 
 // mostrar salida del programa
 if ($_POST) {
-    echo '<div style="text-align:right"><a href="',$_base,'/ide/editor/descargar">Descargar proyecto</a></div>';
-    debug($output);
+    echo '<div style="text-align:right"><a href="',$_base,'/ide/editor/descargar">Descargar proyecto</a></div>',"\n";
+    echo '<pre>',htmlspecialchars($output),'</pre>',"\n";
 }
