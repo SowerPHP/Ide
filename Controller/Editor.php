@@ -203,7 +203,7 @@ class Controller_Editor extends \Controller_App
     private function runCode ($language, $options, $code, $input = '', $args = '', $stdin = '', $timeout = 60)
     {
         // crear directorio temporal para el proyecto y guardar codigo fuente ya archivo de entrada (si existe)
-        $dir = TMP.'/ide_'.string_random(6).'/';
+        $dir = TMP.'/ide_'.\sowerphp\core\Utility_String::random(6).'/';
         mkdir ($dir);
         file_put_contents ($dir.$options['in']['file'], $code);
         if (!empty($input)) {
