@@ -62,7 +62,7 @@ class Model_Editor
     {
         $project = \sowerphp\core\Model_Datasource_Session::read('ide.project');
         if ($project) {
-            $dir = TMP.'/ide_'.string_random(6).'/';
+            $dir = TMP.'/ide_'.\sowerphp\core\Utility_String::random(6).'/';
             mkdir($dir);
             foreach ($project as $file => $content) {
                 file_put_contents ($dir.'/'.$file, $content);
