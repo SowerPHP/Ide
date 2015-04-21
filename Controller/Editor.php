@@ -125,15 +125,15 @@ class Controller_Editor extends \Controller_App
 
     /**
      * Acción para descargar el proyecto
+     * @param formato Formato en que se desea descargar el proyecto (gz, tar o zip)
      * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
-     * @version 2014-05-07
+     * @version 2015-04-21
      */
-    public function descargar ()
+    public function descargar($formato = 'gz')
     {
         $dir = (new Model_Editor)->open();
         if ($dir) {
-            \sowerphp\general\Utility_File::targz($dir, true);
-            exit;
+            \sowerphp\general\Utility_File::compress($dir, ['format'=>$formato, 'delete'=>true]);
         } else {
             \sowerphp\core\Model_Datasource_Session::message(
                 'No existe proyecto guardado que se pueda descargar'

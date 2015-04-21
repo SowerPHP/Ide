@@ -27,7 +27,7 @@
  */
 
 // Conectar la página del editor
-\sowerphp\core\Routing_Router::connect('/ide/editor/descargar', [
+\sowerphp\core\Routing_Router::connect('/ide/editor/descargar/*', [
     'module' => 'Ide',
     'controller' => 'editor',
     'action' => 'descargar'

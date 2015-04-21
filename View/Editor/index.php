@@ -51,6 +51,10 @@ echo $f->end('Ejecutar el código');
 
 // mostrar salida del programa
 if ($_POST) {
-    echo '<div style="text-align:right"><a href="',$_base,'/ide/editor/descargar">Descargar proyecto</a></div>',"\n";
+    echo '<div style="text-align:right">Descargar proyecto: ';
+    echo '<a href="',$_base,'/ide/editor/descargar/gz">.tar.gz</a>';
+    echo ', <a href="',$_base,'/ide/editor/descargar/tar">.tar</a>';
+    echo 'o <a href="',$_base,'/ide/editor/descargar/zip">.zip</a>';
+    echo '</div>',"\n";
     echo '<pre>',htmlspecialchars($output),'</pre>',"\n";
 }
