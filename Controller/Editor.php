@@ -134,6 +134,7 @@ class Controller_Editor extends \Controller_App
         $dir = (new Model_Editor)->open();
         if ($dir) {
             \sowerphp\general\Utility_File::compress($dir, ['format'=>$formato, 'delete'=>true]);
+            exit;
         } else {
             \sowerphp\core\Model_Datasource_Session::message(
                 'No existe proyecto guardado que se pueda descargar'
