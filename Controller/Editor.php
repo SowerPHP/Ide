@@ -272,7 +272,7 @@ class Controller_Editor extends \Controller_App
         // guardar proyecto en la sesión por si el usuario desea bajarlo
         (new Model_Editor)->save($dir);
         // eliminar directorio temporal
-        \sowerphp\general\Utility_File::rmdir_recursive($dir);
+        \sowerphp\general\Utility_File::rmdir($dir);
         // retornar la salida de la ejecición del código
         return $output;
     }
