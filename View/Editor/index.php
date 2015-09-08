@@ -20,7 +20,7 @@ echo $f->input([
     'name'      => 'language',
     'label'     => 'Lenguaje de programación',
     'options'   => array_merge([''=>'Seleccionar un lenguaje'], $options),
-    'selected'  => $language,
+    'value'  => $language,
     'attr'      => 'onchange="asignarLenguaje(languages, this.value)"',
     'check'     => 'notempty',
 ]);
@@ -44,7 +44,7 @@ echo $f->input([
     'name'      => 'font_size',
     'label'     => 'Tamaño de la fuente',
     'options'   => [12=>'12px', 14=>'14px', 18=>'18px', 22=>'22px'],
-    'selected'  => $font_size,
+    'value'  => $font_size,
     'attr'      => 'onchange="changeFontSize(this.value)"',
 ]);
 echo $f->end('Ejecutar el código');
@@ -53,6 +53,7 @@ echo $f->end('Ejecutar el código');
 if ($_POST) {
     echo '<div style="text-align:right">Descargar proyecto: ';
     echo '<a href="',$_base,'/ide/editor/descargar/gz">.tar.gz</a>';
+    echo ', <a href="',$_base,'/ide/editor/descargar/bz2">.tar.bz2</a>';
     echo ', <a href="',$_base,'/ide/editor/descargar/tar">.tar</a>';
     echo 'o <a href="',$_base,'/ide/editor/descargar/zip">.zip</a>';
     echo '</div>',"\n";
